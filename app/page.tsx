@@ -1,5 +1,4 @@
 import { AnnouncementList } from "@/components/AnnouncementList";
-import { AxisRule } from "@/components/AxisRule";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InfoCard } from "@/components/InfoCard";
 import { Parallax } from "@/components/Parallax";
@@ -9,16 +8,17 @@ import { WordReveal } from "@/components/WordReveal";
 import { Container, SectionHeading } from "@/components/Section";
 import { TeamMarquee } from "@/components/TeamMarquee";
 import { TopicMarquee } from "@/components/TopicMarquee";
+import { WaveDivider } from "@/components/WaveDivider";
 import { competition2027 } from "@/lib/content/competition";
 import { latestAnnouncements } from "@/lib/content/news";
 import { site } from "@/lib/content/site";
 import { internationalResults2026 } from "@/lib/content/team";
 
 const stats = [
-  { value: "1 · 1 · 1", label: "Gold, Silver, and Bronze at the 2026 IEO" },
-  { value: "6th of 52", label: "International Business Case Competition" },
-  { value: "5", label: "Students selected for Team USA every cycle" },
-  { value: "K-12", label: "Students across the US are eligible" },
+  { value: "1 / 1 / 1", label: "Gold, Silver, and Bronze medals at the 2026 IEO" },
+  { value: "6th of 52", label: "national teams in the International Business Case Competition" },
+  { value: "5", label: "students selected for Team USA every cycle" },
+  { value: "K-12", label: "students across the US are eligible to compete" },
 ] as const;
 
 const keyDates = [
@@ -42,16 +42,19 @@ const keyDates = [
 const resourceLinks = [
   {
     title: "2027 Cycle",
+    eyebrow: "Current cycle",
     body: "Official dates, round formats, awards, and proctoring details for this year.",
     href: "/compete/2027",
   },
   {
     title: "Syllabus",
+    eyebrow: "Preparation",
     body: "The official microeconomics, macroeconomics, business, and finance topics.",
     href: "/compete/syllabus",
   },
   {
     title: "Past Problems",
+    eyebrow: "Archive",
     body: "Official Round 1 and Round 2 problems from previous competition cycles.",
     href: "/results/past-problems",
   },
@@ -62,7 +65,13 @@ export default function HomePage() {
     <>
       <section className="relative overflow-hidden bg-paper">
         <div aria-hidden="true" className="chart-grid pointer-events-none absolute inset-0" />
-        <Container className="relative pt-16 sm:pt-24">
+        <Parallax className="pointer-events-none absolute inset-0" speed={0.22}>
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_35%_-8rem,var(--color-gold-100),transparent_75%)]"
+          />
+        </Parallax>
+        <Container className="relative pb-20 pt-16 sm:pb-24 sm:pt-24">
           <div className="grid gap-x-8 gap-y-14 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <Reveal>
@@ -100,8 +109,8 @@ export default function HomePage() {
                     How the olympiad works
                   </ButtonLink>
                 </div>
-                <p className="label mt-8 text-ink/45">
-                  Round 1 · {competition2027.rounds[0].date} · Digital, from anywhere
+                <p className="mt-7 text-sm text-ink/60">
+                  Round 1: {competition2027.rounds[0].date} · Digital, from anywhere
                 </p>
               </Reveal>
             </div>
@@ -112,7 +121,9 @@ export default function HomePage() {
                     className="flex flex-col-reverse border-t border-ink/10 py-4 last:border-b"
                     key={stat.label}
                   >
-                    <dt className="label mt-1.5 text-ink/45">{stat.label}</dt>
+                    <dt className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
+                      {stat.label}
+                    </dt>
                     <dd className="font-heading text-2xl font-bold tracking-tight text-navy-900">
                       {stat.value}
                     </dd>
@@ -121,7 +132,6 @@ export default function HomePage() {
               </dl>
             </Reveal>
           </div>
-          <AxisRule className="mt-16 text-gold-500/40" />
         </Container>
       </section>
 
@@ -131,6 +141,7 @@ export default function HomePage() {
         <Container className="py-20 sm:py-24">
           <Reveal>
             <SectionHeading
+              eyebrow="How it works"
               title="From Round 1 to the international stage"
               lead="One competition cycle takes students from an open national round to representing the United States abroad."
             />
@@ -141,9 +152,9 @@ export default function HomePage() {
         </Container>
       </section>
 
+      <WaveDivider className="bg-paper text-mist" />
       <section className="bg-mist">
-        <Container className="py-20 sm:py-24">
-          <AxisRule className="-mt-8 mb-14 text-ink/15 sm:-mt-10" />
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
             <Reveal>
               <div>
@@ -160,17 +171,16 @@ export default function HomePage() {
                 </div>
               </div>
             </Reveal>
-            <Reveal delay={120}>
-              <div className="border-y border-ink/10">
+            <Reveal delay={120} variant="zoom">
+              <div className="overflow-hidden rounded-2xl border border-ink/8 bg-paper shadow-fine">
                 {keyDates.map((row, index) => (
-                  <div className={index === 0 ? "py-6" : "border-t border-ink/10 py-6"} key={row.label}>
-                    <div className="flex items-baseline justify-between gap-4">
-                      <p className="label text-ink/45">{row.label}</p>
-                      <p className="text-right font-heading text-lg font-semibold tracking-tight text-navy-900 sm:text-xl">
-                        {row.value}
-                      </p>
-                    </div>
-                    <p className="mt-1.5 text-sm text-ink/60">{row.detail}</p>
+                  <div
+                    className={index === 0 ? "p-6 sm:p-7" : "border-t border-ink/8 p-6 sm:p-7"}
+                    key={row.label}
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-700">{row.label}</p>
+                    <p className="mt-2 font-heading text-xl font-semibold text-navy-900">{row.value}</p>
+                    <p className="mt-1 text-sm text-ink/60">{row.detail}</p>
                   </div>
                 ))}
               </div>
@@ -179,6 +189,7 @@ export default function HomePage() {
         </Container>
       </section>
 
+      <WaveDivider className="bg-mist text-navy-950" flip />
       <section className="relative overflow-hidden bg-navy-950">
         <Parallax className="pointer-events-none absolute inset-0" speed={-0.1}>
           <div
@@ -186,27 +197,22 @@ export default function HomePage() {
             className="absolute inset-0 bg-[radial-gradient(52rem_26rem_at_88%_-4rem,var(--color-navy-800),transparent_70%)]"
           />
         </Parallax>
-        <Container className="relative pt-20 sm:pt-24">
-          <AxisRule className="-mt-8 mb-14 text-gold-300/25 sm:-mt-10" />
+        <Container className="relative pt-14 sm:pt-16">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
             <Reveal>
               <SectionHeading
                 dark
-                display
                 eyebrow="Team USA at IEO 2026"
-                title={
-                  <>
-                    A <em className="italic text-gold-300">medal-winning debut</em> on the world stage
-                  </>
-                }
+                title="A medal-winning debut on the world stage"
                 lead="In the first year the United States competed in person at the International Economics Olympiad, Team USA brought home one Gold, one Silver, and one Bronze medal in Shenzhen, China."
               />
             </Reveal>
             <Reveal delay={120}>
-              <div className="border-l border-gold-500/40 pl-6">
-                <p className="font-accent text-5xl text-gold-300 sm:text-6xl">6th</p>
-                <p className="label mt-2 text-paper/55">of 52 national teams</p>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-paper/60">
+              <div className="rounded-2xl border border-gold-500/25 bg-navy-900 p-6">
+                <p className="font-heading text-lg font-semibold text-gold-300">
+                  6th out of 52 national teams
+                </p>
+                <p className="mt-1.5 text-sm leading-6 text-paper/60">
                   Led by team captain Shashank Madala, Team USA also placed 6th in the world in the
                   International Business Case Competition.
                 </p>
@@ -214,11 +220,11 @@ export default function HomePage() {
             </Reveal>
           </div>
         </Container>
-        <Reveal className="relative mt-14" delay={160}>
+        <Reveal className="relative mt-12" delay={160} variant="zoom">
           <TeamMarquee />
         </Reveal>
         <Container className="relative pb-20 sm:pb-24">
-          <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4">
             <ButtonLink href="/team-usa" variant="gold">
               Meet Team USA
             </ButtonLink>
@@ -232,16 +238,20 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+      <WaveDivider className="bg-navy-950 text-paper" variant="curve" flip />
 
       <section className="bg-paper">
-        <Container className="py-20 sm:py-24">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <Reveal>
-            <SectionHeading title="Everything you need to prepare" />
+            <SectionHeading
+              eyebrow="Get ready"
+              title="Everything you need to prepare"
+            />
           </Reveal>
-          <div className="mt-10">
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
             {resourceLinks.map((item, index) => (
               <Reveal delay={index * 90} key={item.href}>
-                <InfoCard body={item.body} href={item.href} index={index + 1} title={item.title} />
+                <InfoCard body={item.body} eyebrow={item.eyebrow} href={item.href} title={item.title} />
               </Reveal>
             ))}
           </div>
@@ -249,36 +259,41 @@ export default function HomePage() {
       </section>
 
       <section className="bg-paper">
-        <Container className="pb-20 sm:pb-24">
-          <div className="pt-4">
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.4fr]">
-              <Reveal>
-                <div>
-                  <SectionHeading eyebrow="News" title="Latest announcements" />
-                  <div className="mt-6">
-                    <ButtonLink href="/news" variant="link">
-                      View all announcements
-                    </ButtonLink>
-                  </div>
+        <Container className="py-20 sm:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.4fr]">
+            <Reveal>
+              <div>
+                <SectionHeading eyebrow="News" title="Latest announcements" />
+                <div className="mt-6">
+                  <ButtonLink href="/news" variant="link">
+                    View all announcements
+                  </ButtonLink>
                 </div>
-              </Reveal>
-              <Reveal delay={120}>
-                <AnnouncementList compact items={latestAnnouncements} />
-              </Reveal>
-            </div>
+              </div>
+            </Reveal>
+            <Reveal delay={120}>
+              <AnnouncementList compact items={latestAnnouncements} />
+            </Reveal>
           </div>
         </Container>
       </section>
 
-      <section className="border-t-2 border-gold-500 bg-navy-950">
-        <Container className="py-16 sm:py-20">
-          <Reveal>
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-              <h2 className="max-w-xl font-accent text-4xl font-normal leading-[1.08] tracking-tight text-paper sm:text-5xl">
-                Ready to <em className="italic text-gold-300">represent</em> the US?
-              </h2>
-              <div className="shrink-0">
-                <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
+      <section className="bg-paper pb-20 sm:pb-24">
+        <Container>
+          <Reveal variant="zoom">
+            <div className="relative overflow-hidden rounded-3xl bg-navy-900 px-6 py-14 text-center shadow-panel sm:px-12 sm:py-16">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-[radial-gradient(40rem_16rem_at_50%_120%,var(--color-navy-700),transparent)]"
+              />
+              <div className="relative">
+                <h2 className="mx-auto max-w-2xl font-heading text-3xl font-semibold tracking-tight text-paper sm:text-4xl">
+                  Ready to represent the US?
+                </h2>
+                <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-paper/60">
+                  Registration for the 2027 USAEBO closes on {competition2027.deadline}.
+                </p>
+                <div className="mt-8 flex flex-col items-center justify-center gap-x-7 gap-y-4 sm:flex-row">
                   <ButtonLink href={site.registerUrl} variant="gold">
                     Register for Round 1
                   </ButtonLink>
@@ -286,9 +301,6 @@ export default function HomePage() {
                     Questions? Contact us
                   </ButtonLink>
                 </div>
-                <p className="label mt-6 text-paper/40">
-                  Registration closes {competition2027.deadline}
-                </p>
               </div>
             </div>
           </Reveal>

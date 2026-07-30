@@ -8,9 +8,10 @@ type RevealProps = {
   className?: string;
   delay?: number;
   as?: React.ElementType;
+  variant?: "rise" | "zoom";
 };
 
-export function Reveal({ children, className, delay = 0, as: Tag = "div" }: RevealProps) {
+export function Reveal({ children, className, delay = 0, as: Tag = "div", variant = "rise" }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -40,7 +41,11 @@ export function Reveal({ children, className, delay = 0, as: Tag = "div" }: Reve
   }, []);
 
   return (
-    <Tag className={cn("reveal", className)} ref={ref} style={delay ? { transitionDelay: `${delay}ms` } : undefined}>
+    <Tag
+      className={cn(variant === "zoom" ? "reveal-zoom" : "reveal", className)}
+      ref={ref}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
       {children}
     </Tag>
   );

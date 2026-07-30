@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Instrument_Serif, Inter, Inter_Tight } from "next/font/google";
+import { Instrument_Serif, Inter, Inter_Tight } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { site } from "@/lib/content/site";
@@ -21,12 +21,6 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   weight: "400",
   style: ["normal", "italic"],
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-plex-mono",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -57,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable} ${plexMono.variable}`}
+      className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable}`}
       lang="en"
       suppressHydrationWarning
     >

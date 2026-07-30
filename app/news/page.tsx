@@ -13,11 +13,11 @@ export default function NewsPage() {
     <>
       <PageHero
         body="Official announcements from USAEBO, including results, registration windows, and released problems."
+        eyebrow="News"
         title="Announcements"
-        variant="compact"
       />
       <section className="bg-paper">
-        <Container className="max-w-4xl py-14 sm:py-16">
+        <Container className="max-w-4xl py-16 sm:py-20">
           <Reveal>
             <AnnouncementList headingLevel="h2" />
           </Reveal>

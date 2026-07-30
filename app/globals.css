@@ -22,7 +22,6 @@
   --font-heading: var(--font-display), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-accent: var(--font-instrument-serif), serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -52,56 +51,15 @@
 
 @layer components {
   .skip-link {
-    @apply fixed left-4 top-4 z-50 -translate-y-20 rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-paper transition-transform focus:translate-y-0 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-gold-700;
-  }
-
-  /* The "official record" label voice: mono, small caps, wide tracking */
-  .label {
-    @apply font-mono text-[11px] font-medium uppercase leading-5 tracking-[0.18em];
-  }
-
-  /* Label with a gold axis tick, for section eyebrows */
-  .label-tick::before {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 11px;
-    margin-right: 0.625rem;
-    vertical-align: -1px;
-    background: currentColor;
-  }
-
-  /* The structural signature: an economics chart axis with tick marks */
-  .axis-rule {
-    position: relative;
-    height: 11px;
-  }
-
-  .axis-rule::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 1px;
-    background: currentColor;
-  }
-
-  .axis-rule::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 96px) top / 100% 10px
-        no-repeat,
-      repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 12px) top / 100% 4px
-        no-repeat;
+    @apply fixed left-4 top-4 z-50 -translate-y-20 rounded-full bg-navy-900 px-4 py-2 text-sm font-semibold text-paper transition-transform focus:translate-y-0 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-gold-700;
   }
 
   /* Faint gold graph paper behind the home hero */
   .chart-grid {
     background:
-      linear-gradient(to right, color-mix(in srgb, var(--color-gold-500) 9%, transparent) 1px, transparent 1px)
+      linear-gradient(to right, color-mix(in srgb, var(--color-gold-500) 8%, transparent) 1px, transparent 1px)
         0 0 / 48px 48px,
-      linear-gradient(to bottom, color-mix(in srgb, var(--color-gold-500) 9%, transparent) 1px, transparent 1px)
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-gold-500) 8%, transparent) 1px, transparent 1px)
         0 0 / 48px 48px;
     mask-image: radial-gradient(64rem 32rem at 50% 0%, black 30%, transparent 78%);
   }
@@ -115,13 +73,13 @@
     @apply gap-2.5;
   }
 
-  /* Scroll-reveal: fast, small, never blurry. Hidden only when JS is present (html.js) */
+  /* Scroll-reveal: fast and small. Hidden only when JS is present (html.js) */
   .js .reveal {
     opacity: 0;
-    translate: 0 12px;
+    translate: 0 14px;
     transition:
-      opacity 0.5s var(--ease-out-soft),
-      translate 0.5s var(--ease-out-soft);
+      opacity 0.55s var(--ease-out-soft),
+      translate 0.55s var(--ease-out-soft);
   }
 
   .js .reveal.is-visible {
@@ -129,14 +87,28 @@
     translate: 0 0;
   }
 
-  /* Word-by-word headline reveal (home hero only) */
+  /* Gentle scale entrance for feature cards */
+  .js .reveal-zoom {
+    opacity: 0;
+    scale: 0.975;
+    transition:
+      opacity 0.6s var(--ease-out-soft),
+      scale 0.6s var(--ease-out-soft);
+  }
+
+  .js .reveal-zoom.is-visible {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* Word-by-word headline reveal */
   .js .word {
     display: inline-block;
     opacity: 0;
     translate: 0 0.3em;
     transition:
-      opacity 0.5s var(--ease-out-soft),
-      translate 0.5s var(--ease-out-soft);
+      opacity 0.55s var(--ease-out-soft),
+      translate 0.55s var(--ease-out-soft);
   }
 
   .js .word.in {
@@ -156,7 +128,7 @@
   /* Infinite marquees: track holds N identical copies; shift by one copy width */
   .marquee {
     @apply overflow-hidden;
-    mask-image: linear-gradient(to right, transparent, black 14%, black 86%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
   }
 
   .marquee-track {
@@ -205,10 +177,10 @@
   }
 
   .js .reveal,
+  .js .reveal-zoom,
   .js .word {
     opacity: 1;
     translate: 0 0;
     scale: 1;
-    filter: none;
   }
 }

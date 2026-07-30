@@ -5,27 +5,29 @@ type InfoCardProps = {
   title: string;
   body: string;
   href: string;
-  index: number;
+  eyebrow?: string;
 };
 
-// A ledger row: gold serif numeral, title, body, arrow. The whole row is the link.
-export function InfoCard({ title, body, href, index }: InfoCardProps) {
+export function InfoCard({ title, body, href, eyebrow }: InfoCardProps) {
   return (
     <Link
-      className="group grid grid-cols-[3rem_1fr_auto] items-baseline gap-4 border-t border-ink/10 py-6 transition-colors duration-200 last:border-b hover:bg-mist focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-gold-700 md:grid-cols-[3rem_16rem_1fr_auto] md:gap-6"
+      className="card-lift group flex h-full flex-col rounded-2xl border border-ink/8 bg-paper p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700"
       href={href}
     >
-      <span aria-hidden="true" className="font-accent text-2xl italic text-gold-600">
-        {String(index).padStart(2, "0")}
+      {eyebrow ? (
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-700">{eyebrow}</p>
+      ) : null}
+      <h3 className="mt-2 font-heading text-xl font-semibold text-navy-900">{title}</h3>
+      <p className="mt-2.5 flex-1 text-sm leading-6 text-ink/60">{body}</p>
+      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
+        Learn more
+        <ArrowRight
+          aria-hidden="true"
+          className="text-gold-600 transition-transform duration-200 group-hover:translate-x-1"
+          size={15}
+          strokeWidth={2.2}
+        />
       </span>
-      <h3 className="font-heading text-xl font-semibold text-navy-900">{title}</h3>
-      <p className="hidden text-sm leading-6 text-ink/60 md:block">{body}</p>
-      <ArrowRight
-        aria-hidden="true"
-        className="self-center text-ink/30 transition-all duration-200 group-hover:translate-x-1 group-hover:text-gold-600"
-        size={18}
-        strokeWidth={2}
-      />
     </Link>
   );
 }

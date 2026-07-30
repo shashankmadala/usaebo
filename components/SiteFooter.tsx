@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { footerColumns, site } from "@/lib/content/site";
-import { AxisRule } from "./AxisRule";
 import { ButtonLink } from "./ButtonLink";
+import { WaveDivider } from "./WaveDivider";
 
 export function SiteFooter() {
   return (
     <footer className="text-paper">
+      <WaveDivider className="bg-paper text-navy-950" variant="curve" />
       <div className="bg-navy-950">
-        <div className="mx-auto max-w-content px-5 pb-16 pt-10 sm:px-8 lg:px-10">
-        <AxisRule className="mb-14 text-gold-300/25" />
+        <div className="mx-auto max-w-content px-5 py-16 sm:px-8 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <div className="flex items-center gap-2.5">
@@ -26,7 +26,7 @@ export function SiteFooter() {
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <p className="label text-gold-300">{column.title}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-300">{column.title}</p>
                 <ul className="mt-4 grid gap-2.5">
                   {column.links.map((link) => (
                     <li key={link.href}>
@@ -48,7 +48,7 @@ export function SiteFooter() {
             USAEBO
           </p>
         </div>
-        <div className="label flex flex-col gap-4 border-t border-paper/10 pt-7 text-paper/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-paper/10 pt-7 text-sm text-paper/60 sm:flex-row sm:items-center sm:justify-between">
           <p>Copyright USA Economics and Business Olympiad (USAEBO). All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {site.socials.map((social) => (
