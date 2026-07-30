@@ -63,8 +63,8 @@ export default function SponsorsPage() {
       </section>
       <section className="bg-paper pb-20 sm:pb-24">
         <Container>
-          <Reveal>
-            <div className="rounded-3xl bg-navy-900 px-6 py-12 text-center sm:px-12 sm:py-14">
+          <Reveal variant="zoom">
+            <div className="rounded-3xl bg-navy-900 px-6 py-12 text-center shadow-panel sm:px-12 sm:py-14">
               <h2 className="mx-auto max-w-xl font-heading text-3xl font-semibold tracking-tight text-paper">
                 Become a sponsor or partner
               </h2>

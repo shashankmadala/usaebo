@@ -45,7 +45,7 @@ export default function AboutPage() {
                 lead="USAEBO organizes the USA Economics and Business Olympiad. Each competition cycle selects the five students who represent Team USA at the International Economics Olympiad, the premier international competition in economics, finance, and business for high school students."
               />
             </Reveal>
-            <Reveal delay={120}>
+            <Reveal delay={120} variant="zoom">
               <div className="rounded-2xl border border-ink/8 bg-mist p-6 sm:p-8">
                 <Pathway />
               </div>

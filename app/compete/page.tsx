@@ -135,7 +135,7 @@ export default function CompetePage() {
               lead="Everything students, parents, and teachers ask most before registering."
             />
           </Reveal>
-          <Reveal className="mt-10" delay={120}>
+          <Reveal className="mt-10" delay={120} variant="zoom">
             <Faq />
           </Reveal>
           <Reveal delay={200}>

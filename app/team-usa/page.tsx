@@ -79,7 +79,7 @@ export default function TeamUsaPage() {
             ))}
           </div>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
-            <Reveal delay={100}>
+            <Reveal delay={100} variant="zoom">
               <article className="h-full rounded-2xl border border-gold-500/25 bg-navy-900 p-6">
                 <p className="font-heading text-2xl font-bold tracking-tight text-gold-300">6th of 52</p>
                 <h3 className="mt-2 font-heading text-lg font-semibold text-paper">
@@ -91,7 +91,7 @@ export default function TeamUsaPage() {
                 </p>
               </article>
             </Reveal>
-            <Reveal delay={180}>
+            <Reveal delay={180} variant="zoom">
               <article className="h-full rounded-2xl border border-paper/10 bg-navy-900 p-6">
                 <h3 className="font-heading text-lg font-semibold text-paper">Additional recognition</h3>
                 <ul className="mt-3 grid gap-3 text-sm leading-6 text-paper/55">

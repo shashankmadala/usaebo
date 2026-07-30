@@ -1,8 +1,10 @@
 import { AnnouncementList } from "@/components/AnnouncementList";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InfoCard } from "@/components/InfoCard";
+import { Parallax } from "@/components/Parallax";
 import { Pathway } from "@/components/Pathway";
 import { Reveal } from "@/components/Reveal";
+import { WordReveal } from "@/components/WordReveal";
 import { Container, SectionHeading } from "@/components/Section";
 import { TeamMarquee } from "@/components/TeamMarquee";
 import { TopicMarquee } from "@/components/TopicMarquee";
@@ -62,15 +64,17 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden bg-paper">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_50%_-8rem,var(--color-gold-200),transparent_75%)]"
-        />
-        <div aria-hidden="true" className="orb -left-20 top-16 size-72 bg-gold-200/50" />
-        <div
-          aria-hidden="true"
-          className="orb -right-24 top-40 size-80 bg-gold-100 [animation-delay:-9s] [animation-duration:22s]"
-        />
+        <Parallax className="pointer-events-none absolute inset-0" speed={0.22}>
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_50%_-8rem,var(--color-gold-200),transparent_75%)]"
+          />
+          <div aria-hidden="true" className="orb -left-20 top-16 size-72 bg-gold-200/50" />
+          <div
+            aria-hidden="true"
+            className="orb -right-24 top-40 size-80 bg-gold-100 [animation-delay:-9s] [animation-duration:22s]"
+          />
+        </Parallax>
         <Container className="relative pb-20 pt-20 text-center sm:pb-24 sm:pt-28">
           <Reveal>
             <a
@@ -84,20 +88,21 @@ export default function HomePage() {
               <span className="sr-only"> (opens in new tab)</span>
             </a>
           </Reveal>
-          <Reveal delay={80}>
-            <h1 className="mx-auto mt-8 max-w-4xl font-heading text-5xl font-bold leading-[1.02] tracking-tight text-navy-900 sm:text-6xl lg:text-7xl">
-              The national olympiad for{" "}
-              <span className="font-accent font-normal italic text-gold-600">economics</span> and{" "}
-              <span className="font-accent font-normal italic text-gold-600">business</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
+          <WordReveal
+            accentClassName="font-accent font-normal italic text-gold-600"
+            accentWords={["economics", "business"]}
+            className="mx-auto mt-8 max-w-4xl font-heading text-5xl font-bold leading-[1.02] tracking-tight text-navy-900 sm:text-6xl lg:text-7xl"
+            delay={120}
+            step={80}
+            text="The national olympiad for economics and business"
+          />
+          <Reveal delay={480}>
             <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-ink/60 sm:text-lg">
               The USA Economics and Business Olympiad is the only pathway for K-12 students in the US to
               represent Team USA at the International Economics Olympiad.
             </p>
           </Reveal>
-          <Reveal delay={240}>
+          <Reveal delay={600}>
             <div className="mt-9 flex flex-col items-center justify-center gap-x-7 gap-y-4 sm:flex-row">
               <ButtonLink href={site.registerUrl}>Register for 2027</ButtonLink>
               <ButtonLink href="/compete" variant="link">
@@ -166,8 +171,8 @@ export default function HomePage() {
                 </div>
               </div>
             </Reveal>
-            <Reveal delay={120}>
-              <div className="overflow-hidden rounded-2xl border border-ink/8 bg-paper">
+            <Reveal delay={120} variant="zoom">
+              <div className="overflow-hidden rounded-2xl border border-ink/8 bg-paper shadow-fine">
                 {keyDates.map((row, index) => (
                   <div
                     className={index === 0 ? "p-6 sm:p-7" : "border-t border-ink/8 p-6 sm:p-7"}
@@ -186,10 +191,12 @@ export default function HomePage() {
 
       <WaveDivider className="bg-mist text-navy-950" flip />
       <section className="relative overflow-hidden bg-navy-950">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(52rem_26rem_at_88%_-4rem,var(--color-navy-800),transparent_70%)]"
-        />
+        <Parallax className="pointer-events-none absolute inset-0" speed={-0.1}>
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[radial-gradient(52rem_26rem_at_88%_-4rem,var(--color-navy-800),transparent_70%)]"
+          />
+        </Parallax>
         <Container className="relative pt-14 sm:pt-16">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
             <Reveal>
@@ -213,7 +220,7 @@ export default function HomePage() {
             </Reveal>
           </div>
         </Container>
-        <Reveal className="relative mt-12" delay={160}>
+        <Reveal className="relative mt-12" delay={160} variant="zoom">
           <TeamMarquee />
         </Reveal>
         <Container className="relative pb-20 sm:pb-24">
@@ -273,8 +280,8 @@ export default function HomePage() {
 
       <section className="bg-paper pb-20 sm:pb-24">
         <Container>
-          <Reveal>
-            <div className="relative overflow-hidden rounded-3xl bg-navy-900 px-6 py-14 text-center sm:px-12 sm:py-16">
+          <Reveal variant="zoom">
+            <div className="relative overflow-hidden rounded-3xl bg-navy-900 px-6 py-14 text-center shadow-panel sm:px-12 sm:py-16">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-[radial-gradient(40rem_16rem_at_50%_120%,var(--color-navy-700),transparent)]"
