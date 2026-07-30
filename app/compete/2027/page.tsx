@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/ButtonLink";
+import { CycleTimeline } from "@/components/CycleTimeline";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Container, SectionHeading } from "@/components/Section";
@@ -75,6 +76,21 @@ export default function Competition2027Page() {
                 </div>
               </Reveal>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-paper">
+        <Container className="pb-20 sm:pb-24">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.4fr]">
+            <Reveal>
+              <SectionHeading
+                eyebrow="Timeline"
+                title="The 2027 cycle at a glance"
+                lead="From registration to Team USA selection, here is how the year unfolds."
+              />
+            </Reveal>
+            <CycleTimeline />
           </div>
         </Container>
       </section>

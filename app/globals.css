@@ -84,6 +84,60 @@
   .card-lift:hover {
     @apply -translate-y-1 border-gold-500/50 shadow-panel;
   }
+
+  /* Infinite marquees: track holds N identical copies; shift by one copy width */
+  .marquee {
+    @apply overflow-hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .marquee-track {
+    @apply flex w-max;
+  }
+
+  .marquee-half {
+    animation: marquee-half 60s linear infinite;
+  }
+
+  .marquee-third {
+    animation: marquee-third 36s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .orb {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes marquee-half {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-third {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2.5rem, -1.5rem, 0) scale(1.08);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

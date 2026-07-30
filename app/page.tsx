@@ -1,15 +1,16 @@
-import Image from "next/image";
 import { AnnouncementList } from "@/components/AnnouncementList";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InfoCard } from "@/components/InfoCard";
 import { Pathway } from "@/components/Pathway";
 import { Reveal } from "@/components/Reveal";
 import { Container, SectionHeading } from "@/components/Section";
+import { TeamMarquee } from "@/components/TeamMarquee";
+import { TopicMarquee } from "@/components/TopicMarquee";
 import { WaveDivider } from "@/components/WaveDivider";
 import { competition2027 } from "@/lib/content/competition";
 import { latestAnnouncements } from "@/lib/content/news";
 import { site } from "@/lib/content/site";
-import { internationalResults2026, teamUsa2026 } from "@/lib/content/team";
+import { internationalResults2026 } from "@/lib/content/team";
 
 const stats = [
   { value: "1 / 1 / 1", label: "Gold, Silver, and Bronze medals at the 2026 IEO" },
@@ -64,6 +65,11 @@ export default function HomePage() {
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_50%_-8rem,var(--color-gold-200),transparent_75%)]"
+        />
+        <div aria-hidden="true" className="orb -left-20 top-16 size-72 bg-gold-200/50" />
+        <div
+          aria-hidden="true"
+          className="orb -right-24 top-40 size-80 bg-gold-100 [animation-delay:-9s] [animation-duration:22s]"
         />
         <Container className="relative pb-20 pt-20 text-center sm:pb-24 sm:pt-28">
           <Reveal>
@@ -124,6 +130,8 @@ export default function HomePage() {
         </Container>
       </section>
 
+      <TopicMarquee />
+
       <section className="bg-paper">
         <Container className="py-20 sm:py-24">
           <Reveal>
@@ -182,57 +190,44 @@ export default function HomePage() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(52rem_26rem_at_88%_-4rem,var(--color-navy-800),transparent_70%)]"
         />
-        <Container className="relative pb-20 pt-14 sm:pb-24 sm:pt-16">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <Container className="relative pt-14 sm:pt-16">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
             <Reveal>
-              <div>
-                <SectionHeading
-                  dark
-                  eyebrow="Team USA at IEO 2026"
-                  title="A medal-winning debut on the world stage"
-                  lead="In the first year the United States competed in person at the International Economics Olympiad, Team USA brought home one Gold, one Silver, and one Bronze medal in Shenzhen, China."
-                />
-                <div className="mt-8 rounded-2xl border border-gold-500/25 bg-navy-900 p-6">
-                  <p className="font-heading text-lg font-semibold text-gold-300">
-                    6th out of 52 national teams
-                  </p>
-                  <p className="mt-1.5 text-sm leading-6 text-paper/60">
-                    Led by team captain Shashank Madala, Team USA also placed 6th in the world in the
-                    International Business Case Competition.
-                  </p>
-                </div>
-                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-                  <ButtonLink href="/team-usa" variant="gold">
-                    Meet Team USA
-                  </ButtonLink>
-                  <ButtonLink
-                    className="text-paper hover:text-gold-300"
-                    href={internationalResults2026.pressRelease}
-                    variant="link"
-                  >
-                    Read the press release
-                  </ButtonLink>
-                </div>
+              <SectionHeading
+                dark
+                eyebrow="Team USA at IEO 2026"
+                title="A medal-winning debut on the world stage"
+                lead="In the first year the United States competed in person at the International Economics Olympiad, Team USA brought home one Gold, one Silver, and one Bronze medal in Shenzhen, China."
+              />
+            </Reveal>
+            <Reveal delay={120}>
+              <div className="rounded-2xl border border-gold-500/25 bg-navy-900 p-6">
+                <p className="font-heading text-lg font-semibold text-gold-300">
+                  6th out of 52 national teams
+                </p>
+                <p className="mt-1.5 text-sm leading-6 text-paper/60">
+                  Led by team captain Shashank Madala, Team USA also placed 6th in the world in the
+                  International Business Case Competition.
+                </p>
               </div>
             </Reveal>
-            <Reveal delay={140}>
-              <div className="grid grid-cols-3 gap-3">
-                {teamUsa2026.traveling.map((student) => (
-                  <Image
-                    alt={`${student.name}, Team USA 2026`}
-                    className="aspect-square w-full rounded-2xl border border-paper/10 object-cover"
-                    height={320}
-                    key={student.name}
-                    src={student.image}
-                    width={320}
-                  />
-                ))}
-                <div className="flex aspect-square w-full flex-col items-center justify-center rounded-2xl border border-gold-500/30 bg-navy-900 p-4 text-center">
-                  <p className="font-heading text-2xl font-bold text-gold-300 sm:text-3xl">IEO 2026</p>
-                  <p className="mt-1 text-xs text-paper/55 sm:text-sm">Shenzhen, China</p>
-                </div>
-              </div>
-            </Reveal>
+          </div>
+        </Container>
+        <Reveal className="relative mt-12" delay={160}>
+          <TeamMarquee />
+        </Reveal>
+        <Container className="relative pb-20 sm:pb-24">
+          <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <ButtonLink href="/team-usa" variant="gold">
+              Meet Team USA
+            </ButtonLink>
+            <ButtonLink
+              className="text-paper hover:text-gold-300"
+              href={internationalResults2026.pressRelease}
+              variant="link"
+            >
+              Read the press release
+            </ButtonLink>
           </div>
         </Container>
       </section>

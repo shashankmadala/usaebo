@@ -27,14 +27,24 @@ function isActive(pathname: string, item: NavItem): boolean {
 export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const root = document.documentElement;
+      const max = root.scrollHeight - root.clientHeight;
+      setProgress(max > 0 ? Math.min(window.scrollY / max, 1) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -61,6 +71,11 @@ export function SiteHeader() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-gold-600 via-gold-500 to-gold-300"
+        style={{ transform: `scaleX(${progress})` }}
+      />
       <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
         <Link
           className="flex min-w-0 items-center gap-2.5 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-700"

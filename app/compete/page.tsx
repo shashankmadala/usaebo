@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/ButtonLink";
+import { Faq } from "@/components/Faq";
 import { InfoCard } from "@/components/InfoCard";
 import { PageHero } from "@/components/PageHero";
 import { Pathway } from "@/components/Pathway";
@@ -121,6 +122,30 @@ export default function CompetePage() {
               </Reveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      <section className="bg-paper" id="faq">
+        <Container className="max-w-4xl pb-20 sm:pb-24">
+          <Reveal>
+            <SectionHeading
+              align="center"
+              eyebrow="FAQ"
+              title="Common questions"
+              lead="Everything students, parents, and teachers ask most before registering."
+            />
+          </Reveal>
+          <Reveal className="mt-10" delay={120}>
+            <Faq />
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="mt-8 text-center text-sm text-ink/60">
+              Still have a question?{" "}
+              <ButtonLink href="/contact" variant="link">
+                Contact USAEBO
+              </ButtonLink>
+            </p>
+          </Reveal>
         </Container>
       </section>
     </>
