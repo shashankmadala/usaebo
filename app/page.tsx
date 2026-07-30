@@ -5,6 +5,7 @@ import { InfoCard } from "@/components/InfoCard";
 import { Pathway } from "@/components/Pathway";
 import { Reveal } from "@/components/Reveal";
 import { Container, SectionHeading } from "@/components/Section";
+import { WaveDivider } from "@/components/WaveDivider";
 import { competition2027 } from "@/lib/content/competition";
 import { latestAnnouncements } from "@/lib/content/news";
 import { site } from "@/lib/content/site";
@@ -59,10 +60,10 @@ const resourceLinks = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-ink/8 bg-paper">
+      <section className="relative overflow-hidden bg-paper">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_50%_-8rem,var(--color-gold-100),transparent)]"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_50%_-8rem,var(--color-gold-200),transparent_75%)]"
         />
         <Container className="relative pb-20 pt-20 text-center sm:pb-24 sm:pt-28">
           <Reveal>
@@ -104,7 +105,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-b border-ink/8 bg-paper">
+      <section className="bg-paper">
         <Container className="py-12">
           <dl className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, index) => (
@@ -138,8 +139,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-y border-ink/8 bg-mist">
-        <Container className="py-20 sm:py-24">
+      <WaveDivider className="bg-paper text-mist" />
+      <section className="bg-mist">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
             <Reveal>
               <div>
@@ -174,8 +176,13 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="bg-navy-950">
-        <Container className="py-20 sm:py-24">
+      <WaveDivider className="bg-mist text-navy-950" flip />
+      <section className="relative overflow-hidden bg-navy-950">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(52rem_26rem_at_88%_-4rem,var(--color-navy-800),transparent_70%)]"
+        />
+        <Container className="relative pb-20 pt-14 sm:pb-24 sm:pt-16">
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
             <Reveal>
               <div>
@@ -190,7 +197,8 @@ export default function HomePage() {
                     6th out of 52 national teams
                   </p>
                   <p className="mt-1.5 text-sm leading-6 text-paper/60">
-                    Team USA also placed 6th in the world in the International Business Case Competition.
+                    Led by team captain Shashank Madala, Team USA also placed 6th in the world in the
+                    International Business Case Competition.
                   </p>
                 </div>
                 <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -228,9 +236,10 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+      <WaveDivider className="bg-navy-950 text-paper" variant="curve" flip />
 
       <section className="bg-paper">
-        <Container className="py-20 sm:py-24">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <Reveal>
             <SectionHeading
               eyebrow="Get ready"
@@ -247,7 +256,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-t border-ink/8 bg-paper">
+      <section className="bg-paper">
         <Container className="py-20 sm:py-24">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.4fr]">
             <Reveal>

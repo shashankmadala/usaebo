@@ -3,6 +3,7 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Container, SectionHeading } from "@/components/Section";
 import { StudentCard } from "@/components/StudentCard";
+import { WaveDivider } from "@/components/WaveDivider";
 import { ieo2026, internationalResults2026, teamUsa2026 } from "@/lib/content/team";
 
 export const metadata = {
@@ -38,15 +39,20 @@ export default function TeamUsaPage() {
           <div className="mt-12 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
             {teamUsa2026.traveling.map((student, index) => (
               <Reveal delay={index * 70} key={student.name}>
-                <StudentCard {...student} />
+                <StudentCard {...student} badge={"role" in student ? student.role : undefined} />
               </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="bg-navy-950">
-        <Container className="py-20 sm:py-24">
+      <WaveDivider className="bg-paper text-navy-950" />
+      <section className="relative overflow-hidden bg-navy-950">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(52rem_26rem_at_12%_-4rem,var(--color-navy-800),transparent_70%)]"
+        />
+        <Container className="relative pb-20 pt-14 sm:pb-24 sm:pt-16">
           <Reveal>
             <SectionHeading
               dark
@@ -80,8 +86,8 @@ export default function TeamUsaPage() {
                   International Business Case Competition
                 </h3>
                 <p className="mt-1.5 text-sm leading-6 text-paper/55">
-                  Team USA placed 6th out of 52 national teams in the business case presentation, delivered
-                  before an international jury.
+                  Led by team captain Shashank Madala, Team USA placed 6th out of 52 national teams in the
+                  business case presentation before an international jury.
                 </p>
               </article>
             </Reveal>
@@ -114,9 +120,10 @@ export default function TeamUsaPage() {
           </Reveal>
         </Container>
       </section>
+      <WaveDivider className="bg-navy-950 text-paper" variant="curve" flip />
 
       <section className="bg-paper">
-        <Container className="py-20 sm:py-24">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.4fr]">
             <Reveal>
               <SectionHeading

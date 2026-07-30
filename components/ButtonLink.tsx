@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 type ButtonVariant = "primary" | "gold" | "outline" | "invert" | "link";
 
 const buttonVariants: Record<Exclude<ButtonVariant, "link">, string> = {
-  primary: "bg-navy-900 text-paper hover:bg-navy-700",
-  gold: "bg-gold-500 text-navy-950 hover:bg-gold-400",
+  primary: "bg-navy-900 text-paper hover:bg-navy-700 hover:shadow-navy-glow",
+  gold: "bg-gold-500 text-navy-950 hover:bg-gold-400 hover:shadow-gold-glow",
   outline: "bg-transparent text-navy-900 ring-1 ring-inset ring-ink/15 hover:bg-mist hover:ring-ink/30",
   invert: "bg-paper text-navy-900 hover:bg-gold-100",
 };
@@ -47,7 +47,7 @@ export function ButtonLink({ href, children, variant = "primary", className, ico
   }
 
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700",
+    "inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold transition-all duration-300 [transition-timing-function:var(--ease-out-soft)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700",
     size === "md" ? "min-h-11 px-6 py-2.5" : "min-h-9 px-4 py-1.5",
     buttonVariants[variant],
     className,

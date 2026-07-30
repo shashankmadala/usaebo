@@ -6,7 +6,7 @@ export const ieo2026 = {
 
 export const internationalResults2026 = {
   businessCase:
-    "Team USA placed 6th out of 52 national teams in the International Business Case Competition.",
+    "Led by team captain Shashank Madala, Team USA placed 6th out of 52 national teams in the International Business Case Competition.",
   medals: [
     { medal: "Gold", name: "Eli Orbach", school: "Phillips Exeter Academy", location: "Exeter, NH" },
     { medal: "Silver", name: "Praneeth Annapureddy", school: "BASIS Chandler", location: "Chandler, AZ" },
@@ -47,6 +47,7 @@ export const teamUsa2026 = {
       school: "Robbinsville High School",
       location: "Robbinsville, NJ",
       image: "/images/shashank-madala.jpg",
+      role: "Team Captain",
     },
     {
       name: "Utsav Sunil Kumar",

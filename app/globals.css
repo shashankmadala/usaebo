@@ -18,10 +18,11 @@
   --color-gold-200: #F3E3B8;
   --color-gold-100: #FAF3DE;
   --color-paper: #FFFFFF;
-  --color-mist: #F6F7F9;
+  --color-mist: #F3F6FB;
   --font-heading: var(--font-display), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-accent: var(--font-instrument-serif), serif;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -53,7 +54,8 @@
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 transition-[gap] duration-200;
+    @apply inline-flex items-center gap-1.5 transition-[gap] duration-300;
+    transition-timing-function: var(--ease-out-soft);
   }
 
   .link-arrow:hover {
@@ -63,10 +65,10 @@
   /* Scroll-reveal: only hides content when JS is present (html.js) */
   .js .reveal {
     opacity: 0;
-    translate: 0 18px;
+    translate: 0 24px;
     transition:
-      opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-      translate 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+      opacity 0.9s var(--ease-out-soft),
+      translate 0.9s var(--ease-out-soft);
   }
 
   .js .reveal.is-visible {
@@ -75,11 +77,12 @@
   }
 
   .card-lift {
-    @apply transition-all duration-300;
+    @apply shadow-fine transition-all duration-300;
+    transition-timing-function: var(--ease-out-soft);
   }
 
   .card-lift:hover {
-    @apply -translate-y-0.5 border-gold-500/50 shadow-fine;
+    @apply -translate-y-1 border-gold-500/50 shadow-panel;
   }
 }
 

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/PageHero";
 import { Pathway } from "@/components/Pathway";
 import { Reveal } from "@/components/Reveal";
 import { Container, SectionHeading } from "@/components/Section";
+import { WaveDivider } from "@/components/WaveDivider";
 import { competition2027 } from "@/lib/content/competition";
 import { site } from "@/lib/content/site";
 
@@ -62,8 +63,9 @@ export default function CompetePage() {
         </Container>
       </section>
 
-      <section className="border-y border-ink/8 bg-mist">
-        <Container className="py-20 sm:py-24">
+      <WaveDivider className="bg-paper text-mist" />
+      <section className="bg-mist">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
             <Reveal>
               <div>
@@ -105,9 +107,10 @@ export default function CompetePage() {
           </div>
         </Container>
       </section>
+      <WaveDivider className="bg-mist text-paper" flip />
 
       <section className="bg-paper">
-        <Container className="py-20 sm:py-24">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <Reveal>
             <SectionHeading eyebrow="Go deeper" title="Competition resources" />
           </Reveal>

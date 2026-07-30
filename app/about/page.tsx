@@ -4,6 +4,7 @@ import { Pathway } from "@/components/Pathway";
 import { Reveal } from "@/components/Reveal";
 import { Container, SectionHeading } from "@/components/Section";
 import { StudentCard } from "@/components/StudentCard";
+import { WaveDivider } from "@/components/WaveDivider";
 import { site } from "@/lib/content/site";
 import { leadership, studentAmbassadors } from "@/lib/content/team";
 
@@ -53,8 +54,9 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="border-y border-ink/8 bg-mist">
-        <Container className="py-20 sm:py-24">
+      <WaveDivider className="bg-paper text-mist" />
+      <section className="bg-mist">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <Reveal>
             <SectionHeading
               eyebrow="Leadership"
@@ -80,9 +82,10 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+      <WaveDivider className="bg-mist text-paper" flip />
 
       <section className="bg-paper">
-        <Container className="py-20 sm:py-24">
+        <Container className="pb-20 pt-14 sm:pb-24 sm:pt-16">
           <Reveal>
             <SectionHeading
               eyebrow="Student Ambassadors"

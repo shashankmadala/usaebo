@@ -2,11 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { footerColumns, site } from "@/lib/content/site";
 import { ButtonLink } from "./ButtonLink";
+import { WaveDivider } from "./WaveDivider";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy-950 text-paper">
-      <div className="mx-auto max-w-content px-5 py-16 sm:px-8 lg:px-10">
+    <footer className="text-paper">
+      <WaveDivider className="bg-paper text-navy-950" variant="curve" />
+      <div className="bg-navy-950">
+        <div className="mx-auto max-w-content px-5 py-16 sm:px-8 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <div className="flex items-center gap-2.5">
@@ -61,6 +64,7 @@ export function SiteFooter() {
               {site.contactEmail}
             </a>
           </div>
+        </div>
         </div>
       </div>
     </footer>
