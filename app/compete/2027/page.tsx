@@ -38,30 +38,28 @@ export default function Competition2027Page() {
             <div className="grid gap-5">
               {competition2027.rounds.map((round, index) => (
                 <Reveal delay={index * 100} key={round.name}>
-                  <article className="rounded-2xl border border-ink/8 bg-paper p-6 sm:p-8">
+                  <article className="border-t-2 border-gold-500 pt-6">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div>
                         <h2 className="font-heading text-2xl font-semibold text-navy-900">{round.name}</h2>
-                        <p className="mt-1.5 text-sm font-semibold text-gold-700">
+                        <p className="label mt-2 text-gold-700">
                           {round.date}, {round.time}
                         </p>
                       </div>
-                      <span className="w-fit rounded-full bg-gold-100 px-3 py-1 text-sm font-semibold text-gold-700">
-                        {round.delivery}
-                      </span>
+                      <span className="label w-fit text-ink/45">{round.delivery}</span>
                     </div>
-                    <dl className="mt-6 grid gap-5 border-t border-ink/8 pt-6 text-sm sm:grid-cols-3">
+                    <dl className="mt-6 grid gap-5 border-t border-ink/10 pt-6 text-sm sm:grid-cols-3">
                       <div>
-                        <dt className="font-semibold text-navy-900">Format</dt>
-                        <dd className="mt-1 leading-6 text-ink/60">{round.format}</dd>
+                        <dt className="label text-ink/45">Format</dt>
+                        <dd className="mt-1 leading-6 text-ink/70">{round.format}</dd>
                       </div>
                       <div>
-                        <dt className="font-semibold text-navy-900">Awards</dt>
-                        <dd className="mt-1 leading-6 text-ink/60">{round.awards}</dd>
+                        <dt className="label text-ink/45">Awards</dt>
+                        <dd className="mt-1 leading-6 text-ink/70">{round.awards}</dd>
                       </div>
                       <div>
-                        <dt className="font-semibold text-navy-900">Location</dt>
-                        <dd className="mt-1 leading-6 text-ink/60">{round.location}</dd>
+                        <dt className="label text-ink/45">Location</dt>
+                        <dd className="mt-1 leading-6 text-ink/70">{round.location}</dd>
                       </div>
                     </dl>
                   </article>

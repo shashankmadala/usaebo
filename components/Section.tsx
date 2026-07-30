@@ -6,29 +6,35 @@ export function Container({ children, className }: { children: React.ReactNode; 
 
 type SectionHeadingProps = {
   eyebrow?: string;
-  title: string;
+  title: React.ReactNode;
   lead?: string;
   align?: "left" | "center";
   dark?: boolean;
+  // display: serif statement heading, for dark bands and closing statements
+  display?: boolean;
   id?: string;
 };
 
-export function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, id }: SectionHeadingProps) {
+export function SectionHeading({
+  eyebrow,
+  title,
+  lead,
+  align = "left",
+  dark = false,
+  display = false,
+  id,
+}: SectionHeadingProps) {
   return (
     <div className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>
       {eyebrow ? (
-        <p
-          className={cn(
-            "text-xs font-semibold uppercase tracking-[0.14em]",
-            dark ? "text-gold-300" : "text-gold-700",
-          )}
-        >
-          {eyebrow}
-        </p>
+        <p className={cn("label label-tick", dark ? "text-gold-300" : "text-gold-700")}>{eyebrow}</p>
       ) : null}
       <h2
         className={cn(
-          "mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl",
+          eyebrow && "mt-4",
+          display
+            ? "font-accent text-4xl font-normal leading-[1.08] tracking-tight sm:text-5xl"
+            : "font-heading text-3xl font-semibold tracking-tight sm:text-4xl",
           dark ? "text-paper" : "text-navy-900",
         )}
         id={id}

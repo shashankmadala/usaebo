@@ -1,4 +1,3 @@
-import { Handshake, LineChart, Plane } from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -12,17 +11,14 @@ export const metadata = {
 
 const impact = [
   {
-    icon: LineChart,
     title: "Run the olympiad",
     body: "Sponsorship keeps registration free and supports the national rounds that reach students across the country.",
   },
   {
-    icon: Handshake,
     title: "Train Team USA",
     body: "Partners help prepare the five selected students for the economics, finance, and business case events.",
   },
   {
-    icon: Plane,
     title: "Send students abroad",
     body: "Support covers travel to the International Economics Olympiad, where Team USA competes against 50+ nations.",
   },
@@ -41,37 +37,36 @@ export default function SponsorsPage() {
       <section className="bg-paper">
         <Container className="py-20 sm:py-24">
           <Reveal>
-            <SectionHeading
-              eyebrow="Why partner"
-              title="What your support makes possible"
-            />
+            <SectionHeading title="What your support makes possible" />
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
+          <div className="mt-10">
             {impact.map((item, index) => (
               <Reveal delay={index * 90} key={item.title}>
-                <article className="h-full rounded-2xl border border-ink/8 bg-paper p-6 sm:p-7">
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-gold-100 text-gold-700">
-                    <item.icon aria-hidden="true" size={20} strokeWidth={1.9} />
+                <div className="grid grid-cols-[3rem_1fr] items-baseline gap-4 border-t border-ink/10 py-6 last:border-b md:grid-cols-[3rem_16rem_1fr] md:gap-6">
+                  <span aria-hidden="true" className="font-accent text-2xl italic text-gold-600">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-5 font-heading text-xl font-semibold text-navy-900">{item.title}</h3>
-                  <p className="mt-2.5 text-sm leading-6 text-ink/60">{item.body}</p>
-                </article>
+                  <h3 className="font-heading text-xl font-semibold text-navy-900">{item.title}</h3>
+                  <p className="col-span-2 text-sm leading-6 text-ink/60 md:col-span-1">{item.body}</p>
+                </div>
               </Reveal>
             ))}
           </div>
         </Container>
       </section>
-      <section className="bg-paper pb-20 sm:pb-24">
-        <Container>
-          <Reveal variant="zoom">
-            <div className="rounded-3xl bg-navy-900 px-6 py-12 text-center shadow-panel sm:px-12 sm:py-14">
-              <h2 className="mx-auto max-w-xl font-heading text-3xl font-semibold tracking-tight text-paper">
-                Become a sponsor or partner
-              </h2>
-              <p className="mx-auto mt-4 max-w-lg text-base leading-7 text-paper/60">
-                If you are interested in supporting USAEBO, we would love to hear from you.
-              </p>
-              <div className="mt-8">
+      <section className="border-t-2 border-gold-500 bg-navy-950">
+        <Container className="py-16 sm:py-20">
+          <Reveal>
+            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-xl">
+                <h2 className="font-accent text-4xl font-normal leading-[1.08] tracking-tight text-paper sm:text-5xl">
+                  Become a sponsor or partner
+                </h2>
+                <p className="mt-4 text-base leading-7 text-paper/60">
+                  If you are interested in supporting USAEBO, we would love to hear from you.
+                </p>
+              </div>
+              <div className="shrink-0">
                 <ButtonLink href={`mailto:${site.contactEmail}`} icon="mail" variant="gold">
                   {site.contactEmail}
                 </ButtonLink>

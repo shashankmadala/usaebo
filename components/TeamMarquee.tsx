@@ -7,13 +7,13 @@ type MarqueeCard = {
   school: string;
   image: string;
   highlight: string;
-  highlightStyle: string;
+  squareClass: string;
 };
 
-const medalChipStyles: Record<string, string> = {
-  Gold: "bg-gold-100 text-gold-700",
-  Silver: "bg-zinc-100 text-zinc-600",
-  Bronze: "bg-orange-100 text-orange-800",
+const medalSquares: Record<string, string> = {
+  Gold: "bg-gold-500",
+  Silver: "bg-zinc-400",
+  Bronze: "bg-orange-700",
 };
 
 function buildCards(): MarqueeCard[] {
@@ -25,7 +25,7 @@ function buildCards(): MarqueeCard[] {
         school: student.school,
         image: student.image,
         highlight: `${medal.medal} Medal`,
-        highlightStyle: medalChipStyles[medal.medal],
+        squareClass: medalSquares[medal.medal],
       };
     }
     if ("role" in student && student.role) {
@@ -34,7 +34,7 @@ function buildCards(): MarqueeCard[] {
         school: student.school,
         image: student.image,
         highlight: student.role,
-        highlightStyle: "bg-gold-500 text-navy-950",
+        squareClass: "bg-gold-500",
       };
     }
     const honor = internationalResults2026.honors.find((entry) => entry.detail.includes(student.name));
@@ -43,7 +43,7 @@ function buildCards(): MarqueeCard[] {
       school: student.school,
       image: student.image,
       highlight: honor ? `${honor.title} Finalist` : "Team USA",
-      highlightStyle: "bg-navy-800 text-gold-300",
+      squareClass: "bg-paper/60",
     };
   });
 }
@@ -53,38 +53,35 @@ function CardList({ hidden }: { hidden?: boolean }) {
   return (
     <div aria-hidden={hidden || undefined} className="flex shrink-0 gap-4 pr-4">
       {cards.map((card) => (
-        <article
-          className="w-60 shrink-0 rounded-2xl border border-paper/10 bg-navy-900 p-4 transition-colors duration-300 hover:border-gold-500/40"
-          key={card.name}
-        >
-          <Image
-            alt={hidden ? "" : `${card.name}, Team USA 2026`}
-            className="aspect-square w-full rounded-xl object-cover"
-            height={416}
-            loading="eager"
-            src={card.image}
-            width={416}
-          />
-          <div className="mt-3.5 flex items-start justify-between gap-2">
-            <div className="min-w-0">
-              <h3 className="truncate font-heading text-base font-semibold text-paper">{card.name}</h3>
-              <p className="mt-0.5 truncate text-xs text-paper/50">{card.school}</p>
-            </div>
+        <article className="group w-60 shrink-0" key={card.name}>
+          <div className="relative overflow-hidden rounded-xl">
+            <Image
+              alt={hidden ? "" : `${card.name}, Team USA 2026`}
+              className="aspect-square w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+              height={416}
+              loading="eager"
+              src={card.image}
+              width={416}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-navy-900 opacity-40 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-0"
+            />
           </div>
-          <span
-            className={cn(
-              "mt-2.5 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold",
-              card.highlightStyle,
-            )}
-          >
-            {card.highlight}
-          </span>
+          <div className="mt-3.5">
+            <h3 className="truncate font-heading text-base font-semibold text-paper">{card.name}</h3>
+            <p className="mt-0.5 truncate text-xs text-paper/50">{card.school}</p>
+            <p className="label mt-2 flex items-center gap-2 text-gold-300">
+              <span aria-hidden="true" className={cn("size-1.5", card.squareClass)} />
+              {card.highlight}
+            </p>
+          </div>
         </article>
       ))}
-      <div className="flex w-60 shrink-0 flex-col items-center justify-center rounded-2xl border border-gold-500/30 bg-navy-900 p-4 text-center">
-        <p className="font-heading text-3xl font-bold text-gold-300">IEO 2026</p>
-        <p className="mt-1.5 text-sm text-paper/55">{ieo2026.location}</p>
-        <p className="mt-0.5 text-xs text-paper/40">{ieo2026.dates}</p>
+      <div className="flex w-60 shrink-0 flex-col items-start justify-center border-l border-paper/15 pl-8">
+        <p className="font-accent text-4xl italic text-gold-300">IEO 2026</p>
+        <p className="label mt-3 text-paper/55">{ieo2026.location}</p>
+        <p className="label mt-1 text-paper/35">{ieo2026.dates}</p>
       </div>
     </div>
   );

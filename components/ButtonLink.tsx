@@ -47,7 +47,7 @@ export function ButtonLink({ href, children, variant = "primary", className, ico
   }
 
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold transition-all duration-300 [transition-timing-function:var(--ease-out-soft)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700",
+    "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-all duration-300 [transition-timing-function:var(--ease-out-soft)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700",
     size === "md" ? "min-h-11 px-6 py-2.5" : "min-h-9 px-4 py-1.5",
     buttonVariants[variant],
     className,
