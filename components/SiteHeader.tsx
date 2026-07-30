@@ -1,91 +1,206 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { navItems, site } from "@/lib/content/site";
+import { cn } from "@/lib/utils";
 import { ButtonLink } from "./ButtonLink";
 
 type NavItem = (typeof navItems)[number];
-type NavItemWithChildren = Extract<NavItem, { children: readonly { label: string; href: string }[] }>;
+type NavChild = { label: string; href: string };
 
-function hasChildren(item: NavItem): item is NavItemWithChildren {
-  return "children" in item;
+function getChildren(item: NavItem): readonly NavChild[] | null {
+  return "children" in item ? item.children : null;
+}
+
+function isActive(pathname: string, item: NavItem): boolean {
+  const children = getChildren(item);
+  if (children) {
+    return children.some((child) => pathname === child.href || pathname.startsWith(`${child.href}/`));
+  }
+  return pathname === item.href || pathname.startsWith(`${item.href}/`);
 }
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
+  const closeMenus = () => {
+    setOpenMenu(null);
+    setMobileOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/8 bg-paper/90 backdrop-blur">
+    <header
+      className={cn(
+        "sticky top-0 z-50 bg-paper/85 backdrop-blur-xl transition-shadow duration-300",
+        scrolled || mobileOpen ? "shadow-header" : "shadow-none",
+      )}
+    >
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
         <Link
-          className="flex min-w-0 items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-salmon"
+          className="flex min-w-0 items-center gap-2.5 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-700"
           href="/"
+          onClick={closeMenus}
         >
-          <Image alt="" className="size-8 rounded-md" height={32} src={site.logoUrl} width={32} />
-          <span className="font-accent text-xl italic leading-none text-indigo">{site.shortName.toLowerCase()}</span>
+          <Image alt="" className="size-8" height={32} priority src={site.logoUrl} width={32} />
+          <span className="font-heading text-lg font-bold tracking-tight text-navy-900">{site.shortName}</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) =>
-            hasChildren(item) ? (
-              <details className="group relative" key={item.label}>
-                <summary className="flex min-h-10 cursor-pointer list-none items-center gap-1 rounded-full px-3 text-sm font-medium text-ink/70 transition-colors hover:text-indigo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-salmon">
+        <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
+          {navItems.map((item) => {
+            const children = getChildren(item);
+            const active = isActive(pathname, item);
+            const itemClasses = cn(
+              "flex min-h-9 items-center gap-1 rounded-full px-3.5 text-sm font-medium transition-colors duration-200",
+              active ? "text-navy-900" : "text-ink/60 hover:text-navy-900",
+              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700",
+            );
+
+            if (!children) {
+              return (
+                <Link className={itemClasses} href={item.href} key={item.label} onClick={closeMenus}>
                   {item.label}
-                  <ChevronDown aria-hidden="true" size={14} strokeWidth={2} />
-                </summary>
-                <div className="absolute left-0 top-12 min-w-48 rounded-xl bg-paper p-2 shadow-panel">
-                  {item.children.map((child) => (
-                    <Link
-                      className="block rounded-lg px-3 py-2 text-sm font-medium text-ink/70 transition-colors hover:bg-salmon-tint/60 hover:text-indigo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-salmon"
-                      href={child.href}
-                      key={child.href}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              </details>
-            ) : (
-              <Link
-                className="flex min-h-10 items-center rounded-full px-3 text-sm font-medium text-ink/70 transition-colors hover:text-indigo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-salmon"
-                href={item.href}
-                key={item.href}
+                </Link>
+              );
+            }
+
+            const open = openMenu === item.label;
+            return (
+              <div
+                className="relative"
+                key={item.label}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+                    setOpenMenu((current) => (current === item.label ? null : current));
+                  }
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape" && open) {
+                    event.stopPropagation();
+                    setOpenMenu(null);
+                  }
+                }}
+                onMouseEnter={() => setOpenMenu(item.label)}
+                onMouseLeave={() => setOpenMenu((current) => (current === item.label ? null : current))}
               >
-                {item.label}
-              </Link>
-            ),
-          )}
+                <Link
+                  aria-expanded={open}
+                  className={itemClasses}
+                  href={item.href}
+                  onClick={() => setOpenMenu(null)}
+                  onFocus={() => setOpenMenu(item.label)}
+                >
+                  {item.label}
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={cn("text-ink/35 transition-transform duration-200", open && "rotate-180")}
+                    size={13}
+                    strokeWidth={2.2}
+                  />
+                </Link>
+                <div
+                  className={cn(
+                    "absolute left-1/2 top-full -translate-x-1/2 pt-2 transition-all duration-200",
+                    open ? "visible opacity-100" : "invisible opacity-0",
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "min-w-44 rounded-xl border border-ink/8 bg-paper p-1.5 shadow-panel transition-transform duration-200",
+                      open ? "translate-y-0" : "translate-y-1",
+                    )}
+                  >
+                    {children.map((child) => (
+                      <Link
+                        className={cn(
+                          "block rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150",
+                          pathname === child.href
+                            ? "bg-mist text-navy-900"
+                            : "text-ink/65 hover:bg-mist hover:text-navy-900",
+                          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-gold-700",
+                        )}
+                        href={child.href}
+                        key={child.href}
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </nav>
 
         <div className="hidden lg:block">
-          <ButtonLink href={site.registerUrl}>Register</ButtonLink>
+          <ButtonLink href={site.registerUrl} size="sm">
+            Register
+          </ButtonLink>
         </div>
 
-        <details className="relative lg:hidden">
-          <summary
-            aria-label="Open navigation"
-            className="flex size-11 cursor-pointer list-none items-center justify-center rounded-full text-indigo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-salmon"
-          >
+        <button
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+          className="flex size-10 items-center justify-center rounded-full text-navy-900 transition-colors hover:bg-mist focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700 lg:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          type="button"
+        >
+          {mobileOpen ? (
+            <X aria-hidden="true" size={20} strokeWidth={1.8} />
+          ) : (
             <Menu aria-hidden="true" size={20} strokeWidth={1.8} />
-          </summary>
-          <div className="absolute right-0 top-14 w-[min(20rem,calc(100vw-2rem))] rounded-xl bg-paper p-3 shadow-panel">
-            <nav aria-label="Mobile primary" className="grid gap-1">
-              {navItems.map((item) => (
+          )}
+        </button>
+      </div>
+
+      {mobileOpen ? (
+        <div className="border-t border-ink/8 bg-paper lg:hidden">
+          <nav aria-label="Mobile primary" className="mx-auto max-w-content space-y-1 px-5 py-4 sm:px-8">
+            {navItems.map((item) => {
+              const children = getChildren(item);
+              return (
                 <div key={item.label}>
                   <Link
-                    className="block rounded-lg px-3 py-2 text-sm font-medium text-ink/75 hover:bg-salmon-tint/60 hover:text-indigo"
+                    className="block rounded-lg px-3 py-2.5 text-base font-semibold text-navy-900 hover:bg-mist"
                     href={item.href}
+                    onClick={() => setMobileOpen(false)}
                   >
                     {item.label}
                   </Link>
-                  {hasChildren(item) ? (
-                    <div className="grid gap-1 pl-3">
-                      {item.children.map((child) => (
+                  {children ? (
+                    <div className="mb-1 grid gap-0.5 pl-3">
+                      {children.map((child) => (
                         <Link
-                          className="block rounded-lg px-3 py-2 text-sm text-ink/60 hover:bg-salmon-tint/60 hover:text-indigo"
+                          className="block rounded-lg px-3 py-2 text-sm text-ink/65 hover:bg-mist hover:text-navy-900"
                           href={child.href}
                           key={child.href}
+                          onClick={() => setMobileOpen(false)}
                         >
                           {child.label}
                         </Link>
@@ -93,14 +208,16 @@ export function SiteHeader() {
                     </div>
                   ) : null}
                 </div>
-              ))}
-              <ButtonLink className="mt-2 w-full" href={site.registerUrl}>
-                Register
+              );
+            })}
+            <div className="px-3 pb-2 pt-3">
+              <ButtonLink className="w-full" href={site.registerUrl}>
+                Register for 2027
               </ButtonLink>
-            </nav>
-          </div>
-        </details>
-      </div>
+            </div>
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }

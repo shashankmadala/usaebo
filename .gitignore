@@ -12,3 +12,5 @@ coverage
 work/
 tsconfig.tsbuildinfo
 .DS_Store
+.claude/
+*.tmp.mjs

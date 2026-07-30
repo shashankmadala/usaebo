@@ -63,24 +63,3 @@ export const competition2027 = {
     "All decisions are final.",
   ],
 } as const;
-
-export const stageCards = [
-  {
-    title: "Round 1",
-    eyebrow: "Open round",
-    body: "Students begin with a digital multiple-choice exam administered with required proctoring technology.",
-    href: "/compete/2027",
-  },
-  {
-    title: "Round 2",
-    eyebrow: "Qualifier round",
-    body: "Qualified students complete free-response problems that require reasoning.",
-    href: "/compete/2027",
-  },
-  {
-    title: "Team USA",
-    eyebrow: "National team",
-    body: "Five students are selected from Round 2 to represent the U.S. at the International Economics Olympiad.",
-    href: "/team-usa",
-  },
-] as const;

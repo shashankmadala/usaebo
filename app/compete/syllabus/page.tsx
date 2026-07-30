@@ -1,9 +1,12 @@
 import { PageHero } from "@/components/PageHero";
-import { SourceNote } from "@/components/SourceNote";
+import { Reveal } from "@/components/Reveal";
+import { Container } from "@/components/Section";
 import { syllabus } from "@/lib/content/syllabus";
 
 export const metadata = {
   title: "Syllabus",
+  description:
+    "The official USAEBO syllabus covering microeconomics, macroeconomics, business, and finance.",
 };
 
 export default function SyllabusPage() {
@@ -15,23 +18,25 @@ export default function SyllabusPage() {
         title="Syllabus"
       />
       <section className="bg-paper">
-        <div className="mx-auto grid max-w-content gap-x-10 gap-y-10 border-t border-ink/10 px-4 py-16 sm:px-6 lg:grid-cols-3 lg:px-8">
-          {syllabus.map((group) => (
-            <article key={group.category}>
-              <h2 className="font-heading text-2xl font-semibold text-indigo">{group.category}</h2>
-              <ul className="mt-5 grid gap-3 text-sm leading-6 text-ink/65">
-                {group.topics.map((topic) => (
-                  <li className="border-t border-ink/8 pt-3 first:border-t-0 first:pt-0" key={topic}>
-                    {topic}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-          <div className="lg:col-span-3">
-            <SourceNote href="https://www.usaebo.org/syllabus" label="Official USAEBO syllabus" />
+        <Container className="py-20 sm:py-24">
+          <div className="grid gap-5 lg:grid-cols-3">
+            {syllabus.map((group, index) => (
+              <Reveal delay={index * 100} key={group.category}>
+                <article className="h-full rounded-2xl border border-ink/8 bg-paper p-6 sm:p-8">
+                  <h2 className="font-heading text-2xl font-semibold text-navy-900">{group.category}</h2>
+                  <ul className="mt-6 grid gap-3 text-sm leading-6 text-ink/60">
+                    {group.topics.map((topic) => (
+                      <li className="flex gap-3" key={topic}>
+                        <span aria-hidden="true" className="mt-2.5 size-1 shrink-0 rounded-full bg-gold-500" />
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            ))}
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

@@ -15,7 +15,6 @@ const internalRoutes = [
   "/news",
   "/sponsors",
   "/contact",
-  "/dev/kit",
 ];
 const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: process.cwd(),
@@ -24,6 +23,10 @@ const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "-
 });
 
 let output = "";
+let exited = false;
+server.on("exit", () => {
+  exited = true;
+});
 server.stdout.on("data", (chunk) => {
   output += chunk.toString();
 });
@@ -38,12 +41,16 @@ function wait(ms) {
 async function waitForServer() {
   const startedAt = Date.now();
   while (Date.now() - startedAt < 30000) {
+    if (exited) {
+      throw new Error(`Next server exited before becoming ready. Run "npm run build" first.\n${output}`);
+    }
     try {
       const response = await fetch(origin);
       if (response.ok) return;
     } catch {
-      await wait(500);
+      // Server not accepting connections yet.
     }
+    await wait(500);
   }
 
   throw new Error(`Next server did not become ready.\n${output}`);

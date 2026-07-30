@@ -5,10 +5,8 @@ export const site = {
   description:
     "USAEBO is the only pathway for K-12 students in the US to be on Team USA for the International Economics Olympiad.",
   registerUrl: "https://portal.beaver-edge.ai/i/2027-usaebo-round1-registration",
-  forumUrl: "https://www.usaebo.org/forum",
   contactEmail: "info@usaebo.org",
-  logoUrl:
-    "https://static.wixstatic.com/media/87b792_8deb25e61ca8409485e29c3baa8070fc%7Emv2.webp/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/87b792_8deb25e61ca8409485e29c3baa8070fc%7Emv2.webp",
+  logoUrl: "/images/logo.png",
   socials: [
     {
       label: "Instagram",
@@ -26,13 +24,12 @@ export const site = {
 } as const;
 
 export const navItems = [
-  { label: "Home", href: "/" },
   {
     label: "Compete",
     href: "/compete",
     children: [
       { label: "Overview", href: "/compete" },
-      { label: "2027", href: "/compete/2027" },
+      { label: "2027 Cycle", href: "/compete/2027" },
       { label: "Syllabus", href: "/compete/syllabus" },
       { label: "Rules", href: "/compete/rules" },
     ],
@@ -41,15 +38,50 @@ export const navItems = [
     label: "Results",
     href: "/results",
     children: [
-      { label: "Hall of fame", href: "/results" },
-      { label: "Past problems", href: "/results/past-problems" },
+      { label: "Hall of Fame", href: "/results" },
+      { label: "Past Problems", href: "/results/past-problems" },
     ],
   },
   { label: "Team USA", href: "/team-usa" },
-  { label: "About", href: "/about" },
   { label: "News", href: "/news" },
-  { label: "Sponsors", href: "/sponsors" },
-  { label: "Contact", href: "/contact" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "About & Leadership", href: "/about" },
+      { label: "Sponsors", href: "/sponsors" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+] as const;
+
+export const footerColumns = [
+  {
+    title: "Compete",
+    links: [
+      { label: "Overview", href: "/compete" },
+      { label: "2027 Cycle", href: "/compete/2027" },
+      { label: "Syllabus", href: "/compete/syllabus" },
+      { label: "Rules", href: "/compete/rules" },
+    ],
+  },
+  {
+    title: "Results",
+    links: [
+      { label: "Hall of Fame", href: "/results" },
+      { label: "Past Problems", href: "/results/past-problems" },
+      { label: "Team USA", href: "/team-usa" },
+    ],
+  },
+  {
+    title: "Organization",
+    links: [
+      { label: "About & Leadership", href: "/about" },
+      { label: "News", href: "/news" },
+      { label: "Sponsors", href: "/sponsors" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
 ] as const;
 
 export const internalRoutes = [
@@ -65,15 +97,4 @@ export const internalRoutes = [
   "/news",
   "/sponsors",
   "/contact",
-  "/dev/kit",
-] as const;
-
-export const sourceLinks = [
-  { label: "Official USAEBO home", href: "https://www.usaebo.org/" },
-  { label: "Official 2027 USAEBO page", href: "https://www.usaebo.org/2027-usaebo" },
-  { label: "Official syllabus", href: "https://www.usaebo.org/syllabus" },
-  { label: "Official Hall of Fame", href: "https://www.usaebo.org/hall-of-fame" },
-  { label: "Official past problems", href: "https://www.usaebo.org/past-problems" },
-  { label: "Official Team USA page", href: "https://www.usaebo.org/2026-team-usa" },
-  { label: "IEO 2026 regulations", href: "https://files.ieo-official.org/2026/AR_2026.pdf" },
 ] as const;

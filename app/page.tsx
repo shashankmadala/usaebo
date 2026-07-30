@@ -1,59 +1,57 @@
 import Image from "next/image";
 import { AnnouncementList } from "@/components/AnnouncementList";
 import { ButtonLink } from "@/components/ButtonLink";
-import { NewsletterForm } from "@/components/Forms";
 import { InfoCard } from "@/components/InfoCard";
-import { PathwayRail } from "@/components/PathwayRail";
-import { SectionHeader } from "@/components/SectionHeader";
+import { Pathway } from "@/components/Pathway";
+import { Reveal } from "@/components/Reveal";
+import { Container, SectionHeading } from "@/components/Section";
 import { competition2027 } from "@/lib/content/competition";
 import { latestAnnouncements } from "@/lib/content/news";
-import { pastProblems } from "@/lib/content/results";
 import { site } from "@/lib/content/site";
-import { ieo2026, teamUsa2026 } from "@/lib/content/team";
+import { internationalResults2026, teamUsa2026 } from "@/lib/content/team";
 
-const currentCycleRows = [
-  ["Registration deadline", competition2027.deadline],
-  ["Round 1", `${competition2027.rounds[0].date}, ${competition2027.rounds[0].time}`],
-  ["Round 1 format", competition2027.rounds[0].format],
-  ["Round 2", `${competition2027.rounds[1].date}, ${competition2027.rounds[1].time}`],
-  ["Round 2 format", competition2027.rounds[1].format],
+const stats = [
+  { value: "1 / 1 / 1", label: "Gold, Silver, and Bronze medals at the 2026 IEO" },
+  { value: "6th of 52", label: "national teams in the International Business Case Competition" },
+  { value: "5", label: "students selected for Team USA every cycle" },
+  { value: "K-12", label: "students across the US are eligible to compete" },
+] as const;
+
+const keyDates = [
+  {
+    label: "Registration deadline",
+    value: competition2027.deadline,
+    detail: "Free to register, open to all eligible students",
+  },
+  {
+    label: "Round 1",
+    value: `${competition2027.rounds[0].date}, ${competition2027.rounds[0].time}`,
+    detail: competition2027.rounds[0].format,
+  },
+  {
+    label: "Round 2",
+    value: `${competition2027.rounds[1].date}, ${competition2027.rounds[1].time}`,
+    detail: competition2027.rounds[1].format,
+  },
 ] as const;
 
 const resourceLinks = [
   {
-    title: "Compete",
-    eyebrow: "Overview",
-    body: "Start with the structure, eligibility, schedule, and registration details for the competition cycle.",
-    href: "/compete",
-  },
-  {
-    title: "2027 USAEBO",
+    title: "2027 Cycle",
     eyebrow: "Current cycle",
-    body: "Review the official dates, round formats, award systems, and proctoring notes.",
+    body: "Official dates, round formats, awards, and proctoring details for this year.",
     href: "/compete/2027",
   },
   {
     title: "Syllabus",
     eyebrow: "Preparation",
-    body: "See the official microeconomics, macroeconomics, business, and finance topics.",
+    body: "The official microeconomics, macroeconomics, business, and finance topics.",
     href: "/compete/syllabus",
   },
   {
-    title: "Rules",
-    eyebrow: "Competition policy",
-    body: "Read the eligibility, structure, proctoring, and disqualification policies.",
-    href: "/compete/rules",
-  },
-  {
-    title: "Results",
-    eyebrow: "Hall of fame",
-    body: "Browse the 2026 Round 2 award ranking list from the official spreadsheet.",
-    href: "/results",
-  },
-  {
-    title: "Past problems",
+    title: "Past Problems",
     eyebrow: "Archive",
-    body: `Access the official ${pastProblems[0].year} Round 1 and Round 2 problem links.`,
+    body: "Official Round 1 and Round 2 problems from previous competition cycles.",
     href: "/results/past-problems",
   },
 ] as const;
@@ -61,137 +59,241 @@ const resourceLinks = [
 export default function HomePage() {
   return (
     <>
+      <section className="relative overflow-hidden border-b border-ink/8 bg-paper">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(60rem_28rem_at_50%_-8rem,var(--color-gold-100),transparent)]"
+        />
+        <Container className="relative pb-20 pt-20 text-center sm:pb-24 sm:pt-28">
+          <Reveal>
+            <a
+              className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-paper px-4 py-1.5 text-sm font-medium text-ink/70 transition-colors duration-200 hover:border-gold-500/60 hover:text-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700"
+              href={site.registerUrl}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <span aria-hidden="true" className="size-1.5 rounded-full bg-gold-500" />
+              Registration for the 2027 USAEBO is open
+              <span className="sr-only"> (opens in new tab)</span>
+            </a>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="mx-auto mt-8 max-w-4xl font-heading text-5xl font-bold leading-[1.02] tracking-tight text-navy-900 sm:text-6xl lg:text-7xl">
+              The national olympiad for{" "}
+              <span className="font-accent font-normal italic text-gold-600">economics</span> and{" "}
+              <span className="font-accent font-normal italic text-gold-600">business</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-ink/60 sm:text-lg">
+              The USA Economics and Business Olympiad is the only pathway for K-12 students in the US to
+              represent Team USA at the International Economics Olympiad.
+            </p>
+          </Reveal>
+          <Reveal delay={240}>
+            <div className="mt-9 flex flex-col items-center justify-center gap-x-7 gap-y-4 sm:flex-row">
+              <ButtonLink href={site.registerUrl}>Register for 2027</ButtonLink>
+              <ButtonLink href="/compete" variant="link">
+                How the olympiad works
+              </ButtonLink>
+            </div>
+            <p className="mt-7 text-sm text-ink/60">
+              Round 1: {competition2027.rounds[0].date} · Digital, from anywhere · Individual competition
+            </p>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="border-b border-ink/8 bg-paper">
+        <Container className="py-12">
+          <dl className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat, index) => (
+              <Reveal
+                className="flex flex-col-reverse border-l-2 border-gold-500 pl-5"
+                delay={index * 80}
+                key={stat.label}
+              >
+                <dt className="mt-2 text-sm leading-6 text-ink/60">{stat.label}</dt>
+                <dd className="font-heading text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+                  {stat.value}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </Container>
+      </section>
+
       <section className="bg-paper">
-        <div className="mx-auto max-w-content px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20 lg:px-8">
-          <p className="text-sm font-semibold text-violet-deep">{competition2027.registrationStatus}</p>
-          <h1 className="mx-auto mt-6 max-w-4xl font-heading text-5xl font-bold leading-[0.98] tracking-tight text-indigo sm:text-6xl lg:text-7xl">
-            USA Economics and{" "}
-            <span className="font-accent font-normal italic text-violet-deep">Business Olympiad</span>
-          </h1>
-          <p className="mx-auto mt-7 max-w-xl text-base leading-7 text-ink/65 sm:text-lg">
-            The only pathway for K-12 students in the US to represent Team USA at the International
-            Economics Olympiad.
-          </p>
-          <div className="mt-9 flex flex-col items-center justify-center gap-x-8 gap-y-4 sm:flex-row">
-            <ButtonLink href={site.registerUrl}>Register</ButtonLink>
-            <ButtonLink href="/compete" variant="link">
-              How it works
-            </ButtonLink>
+        <Container className="py-20 sm:py-24">
+          <Reveal>
+            <SectionHeading
+              eyebrow="How it works"
+              title="From Round 1 to the international stage"
+              lead="One competition cycle takes students from an open national round to representing the United States abroad."
+            />
+          </Reveal>
+          <div className="mt-12">
+            <Pathway />
           </div>
-          <p className="mt-6 text-sm text-ink/45">
-            Round 1: {competition2027.rounds[0].date} · Digital, from anywhere · Free to enter
-          </p>
-        </div>
-        <div className="mx-auto max-w-content px-4 pb-16 sm:px-6 lg:px-8">
-          <PathwayRail compact />
-        </div>
+        </Container>
       </section>
 
-      <section className="border-t border-ink/8 bg-paper">
-        <div className="mx-auto grid max-w-content gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
-          <article>
-            <p className="text-sm font-semibold text-violet-deep">Current cycle</p>
-            <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-indigo">2027 USAEBO</h2>
-            <dl className="mt-6 divide-y divide-ink/8 border-y border-ink/8">
-              {currentCycleRows.map(([label, value]) => (
-                <div className="grid gap-2 py-4 text-sm sm:grid-cols-[11rem_1fr]" key={label}>
-                  <dt className="font-semibold text-indigo">{label}</dt>
-                  <dd className="text-ink/65">{value}</dd>
+      <section className="border-y border-ink/8 bg-mist">
+        <Container className="py-20 sm:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+            <Reveal>
+              <div>
+                <SectionHeading
+                  eyebrow="2027 cycle"
+                  title="Key dates"
+                  lead="Both rounds are digital and proctored, and can be taken from school, home, or a library."
+                />
+                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+                  <ButtonLink href={site.registerUrl}>Register</ButtonLink>
+                  <ButtonLink href="/compete/2027" variant="link">
+                    Full 2027 details
+                  </ButtonLink>
                 </div>
-              ))}
-            </dl>
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <ButtonLink href={site.registerUrl}>Register</ButtonLink>
-              <ButtonLink href="/compete/2027" variant="link">
-                View schedule
-              </ButtonLink>
-            </div>
-          </article>
-
-          <article>
-            <p className="text-sm font-semibold text-violet-deep">International stage</p>
-            <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-indigo">Team USA and IEO</h2>
-            <div className="mt-6 overflow-hidden rounded-2xl">
-              <Image
-                alt="Team USA delegation at the International Economics Olympiad"
-                className="aspect-[16/9] w-full object-cover"
-                height={360}
-                src="/images/team-usa-ieo-2026.jpg"
-                width={640}
-              />
-            </div>
-            <dl className="mt-6 divide-y divide-ink/8 border-y border-ink/8">
-              <div className="grid gap-2 py-4 text-sm sm:grid-cols-[11rem_1fr]">
-                <dt className="font-semibold text-indigo">Team USA</dt>
-                <dd className="text-ink/65">
-                  {teamUsa2026.traveling.length} traveling members and {teamUsa2026.alternatives.length} alternative
-                  members are listed for the 2026 IEO.
-                </dd>
               </div>
-              <div className="grid gap-2 py-4 text-sm sm:grid-cols-[11rem_1fr]">
-                <dt className="font-semibold text-indigo">IEO 2026</dt>
-                <dd className="text-ink/65">
-                  {ieo2026.location}, {ieo2026.dates}
-                </dd>
+            </Reveal>
+            <Reveal delay={120}>
+              <div className="overflow-hidden rounded-2xl border border-ink/8 bg-paper">
+                {keyDates.map((row, index) => (
+                  <div
+                    className={index === 0 ? "p-6 sm:p-7" : "border-t border-ink/8 p-6 sm:p-7"}
+                    key={row.label}
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-700">{row.label}</p>
+                    <p className="mt-2 font-heading text-xl font-semibold text-navy-900">{row.value}</p>
+                    <p className="mt-1 text-sm text-ink/60">{row.detail}</p>
+                  </div>
+                ))}
               </div>
-            </dl>
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <ButtonLink href="/team-usa" variant="link">
-                Meet Team USA
-              </ButtonLink>
-              <ButtonLink href={site.forumUrl} variant="link">
-                Open forum
-              </ButtonLink>
-            </div>
-          </article>
-        </div>
+            </Reveal>
+          </div>
+        </Container>
       </section>
 
-      <section className="border-t border-ink/8 bg-paper">
-        <div className="mx-auto max-w-content px-4 py-16 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Information"
-            title="Competition pages"
-            body="The site is organized around the pages students, parents, and teachers need most often."
-          />
-          <div className="mt-10 grid gap-x-10 gap-y-0 md:grid-cols-2 lg:grid-cols-3">
-            {resourceLinks.map((item) => (
-              <InfoCard body={item.body} eyebrow={item.eyebrow} href={item.href} key={item.href} title={item.title} />
+      <section className="bg-navy-950">
+        <Container className="py-20 sm:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+            <Reveal>
+              <div>
+                <SectionHeading
+                  dark
+                  eyebrow="Team USA at IEO 2026"
+                  title="A medal-winning debut on the world stage"
+                  lead="In the first year the United States competed in person at the International Economics Olympiad, Team USA brought home one Gold, one Silver, and one Bronze medal in Shenzhen, China."
+                />
+                <div className="mt-8 rounded-2xl border border-gold-500/25 bg-navy-900 p-6">
+                  <p className="font-heading text-lg font-semibold text-gold-300">
+                    6th out of 52 national teams
+                  </p>
+                  <p className="mt-1.5 text-sm leading-6 text-paper/60">
+                    Team USA also placed 6th in the world in the International Business Case Competition.
+                  </p>
+                </div>
+                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+                  <ButtonLink href="/team-usa" variant="gold">
+                    Meet Team USA
+                  </ButtonLink>
+                  <ButtonLink
+                    className="text-paper hover:text-gold-300"
+                    href={internationalResults2026.pressRelease}
+                    variant="link"
+                  >
+                    Read the press release
+                  </ButtonLink>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={140}>
+              <div className="grid grid-cols-3 gap-3">
+                {teamUsa2026.traveling.map((student) => (
+                  <Image
+                    alt={`${student.name}, Team USA 2026`}
+                    className="aspect-square w-full rounded-2xl border border-paper/10 object-cover"
+                    height={320}
+                    key={student.name}
+                    src={student.image}
+                    width={320}
+                  />
+                ))}
+                <div className="flex aspect-square w-full flex-col items-center justify-center rounded-2xl border border-gold-500/30 bg-navy-900 p-4 text-center">
+                  <p className="font-heading text-2xl font-bold text-gold-300 sm:text-3xl">IEO 2026</p>
+                  <p className="mt-1 text-xs text-paper/55 sm:text-sm">Shenzhen, China</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-paper">
+        <Container className="py-20 sm:py-24">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Get ready"
+              title="Everything you need to prepare"
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {resourceLinks.map((item, index) => (
+              <Reveal delay={index * 90} key={item.href}>
+                <InfoCard body={item.body} eyebrow={item.eyebrow} href={item.href} title={item.title} />
+              </Reveal>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       <section className="border-t border-ink/8 bg-paper">
-        <div className="mx-auto grid max-w-content gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.7fr_1.3fr] lg:px-8">
-          <SectionHeader
-            eyebrow="News"
-            title="Latest announcements"
-            body="Updates are carried over from the official USAEBO announcements page."
-          />
-          <AnnouncementList items={latestAnnouncements} />
-        </div>
+        <Container className="py-20 sm:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.4fr]">
+            <Reveal>
+              <div>
+                <SectionHeading eyebrow="News" title="Latest announcements" />
+                <div className="mt-6">
+                  <ButtonLink href="/news" variant="link">
+                    View all announcements
+                  </ButtonLink>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={120}>
+              <AnnouncementList items={latestAnnouncements} />
+            </Reveal>
+          </div>
+        </Container>
       </section>
 
-      <section className="border-t border-ink/8 bg-indigo">
-        <div className="mx-auto grid max-w-content gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1fr] lg:items-center lg:px-8">
-          <div>
-            <p className="text-sm font-semibold text-salmon">2027 USAEBO</p>
-            <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-paper">Register for Round 1</h2>
-            <p className="mt-4 text-sm leading-6 text-paper/70">
-              Registration closes on February 27, 2027 at 11:59pm ET.
-            </p>
-            <div className="mt-6">
-              <ButtonLink href={site.registerUrl} variant="invert">
-                Register
-              </ButtonLink>
+      <section className="bg-paper pb-20 sm:pb-24">
+        <Container>
+          <Reveal>
+            <div className="relative overflow-hidden rounded-3xl bg-navy-900 px-6 py-14 text-center sm:px-12 sm:py-16">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-64 bg-[radial-gradient(40rem_16rem_at_50%_120%,var(--color-navy-700),transparent)]"
+              />
+              <div className="relative">
+                <h2 className="mx-auto max-w-2xl font-heading text-3xl font-semibold tracking-tight text-paper sm:text-4xl">
+                  Ready to represent the US?
+                </h2>
+                <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-paper/60">
+                  Registration for the 2027 USAEBO closes on {competition2027.deadline}.
+                </p>
+                <div className="mt-8 flex flex-col items-center justify-center gap-x-7 gap-y-4 sm:flex-row">
+                  <ButtonLink href={site.registerUrl} variant="gold">
+                    Register for Round 1
+                  </ButtonLink>
+                  <ButtonLink className="text-paper hover:text-gold-300" href="/contact" variant="link">
+                    Questions? Contact us
+                  </ButtonLink>
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <p className="mb-3 text-sm font-semibold text-paper">Newsletter</p>
-            <NewsletterForm dark />
-          </div>
-        </div>
+          </Reveal>
+        </Container>
       </section>
     </>
   );

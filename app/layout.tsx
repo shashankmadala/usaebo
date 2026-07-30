@@ -18,7 +18,7 @@ const interTight = Inter_Tight({
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-accent",
+  variable: "--font-instrument-serif",
   weight: "400",
   style: ["normal", "italic"],
 });
@@ -26,12 +26,12 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "USAEBO",
+    default: "USAEBO | USA Economics and Business Olympiad",
     template: "%s | USAEBO",
   },
   description: site.description,
   openGraph: {
-    title: "USAEBO",
+    title: "USAEBO | USA Economics and Business Olympiad",
     description: site.description,
     url: site.url,
     siteName: "USAEBO",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "USAEBO",
+    title: "USAEBO | USA Economics and Business Olympiad",
     description: site.description,
   },
 };
@@ -50,8 +50,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable}`} lang="en">
+    <html
+      className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable}`}
+      lang="en"
+      suppressHydrationWarning
+    >
       <body>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />

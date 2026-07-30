@@ -1,24 +1,27 @@
 import { AnnouncementList } from "@/components/AnnouncementList";
 import { PageHero } from "@/components/PageHero";
-import { SourceNote } from "@/components/SourceNote";
+import { Reveal } from "@/components/Reveal";
+import { Container } from "@/components/Section";
 
 export const metadata = {
   title: "News",
+  description: "Official announcements from the USA Economics and Business Olympiad.",
 };
 
 export default function NewsPage() {
   return (
     <>
       <PageHero
-        body="Announcements are carried over from the official USAEBO home page."
+        body="Official announcements from USAEBO, including results, registration windows, and released problems."
         eyebrow="News"
         title="Announcements"
       />
       <section className="bg-paper">
-        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <AnnouncementList />
-          <SourceNote href="https://www.usaebo.org/" label="Official USAEBO announcements" />
-        </div>
+        <Container className="max-w-4xl py-16 sm:py-20">
+          <Reveal>
+            <AnnouncementList headingLevel="h2" />
+          </Reveal>
+        </Container>
       </section>
     </>
   );

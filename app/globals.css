@@ -2,18 +2,26 @@
 @config "../tailwind.config.ts";
 
 @theme {
-  --color-ink: #16132C;
-  --color-indigo: #18133E;
-  --color-indigo-mid: #1D2051;
-  --color-violet: #6E63BC;
-  --color-violet-deep: #4B3BC1;
-  --color-violet-tint: #C3BDEB;
-  --color-salmon: #FFC3BC;
-  --color-salmon-tint: #FFE1DE;
-  --color-paper: #FBFBFB;
+  /* Brand: deep navy + gold, matching the USAEBO mark */
+  --color-navy-950: #050B1D;
+  --color-navy-900: #0A1733;
+  --color-navy-800: #122448;
+  --color-navy-700: #1B3462;
+  --color-navy-600: #2A4A85;
+  --color-royal: #2E55A3;
+  --color-ink: #0C142B;
+  --color-gold-700: #8A6A1E;
+  --color-gold-600: #A9852D;
+  --color-gold-500: #C9A227;
+  --color-gold-400: #DCB852;
+  --color-gold-300: #EACF8A;
+  --color-gold-200: #F3E3B8;
+  --color-gold-100: #FAF3DE;
+  --color-paper: #FFFFFF;
+  --color-mist: #F6F7F9;
   --font-heading: var(--font-display), sans-serif;
   --font-body: var(--font-inter), sans-serif;
-  --font-accent: var(--font-accent), serif;
+  --font-accent: var(--font-instrument-serif), serif;
 }
 
 @layer base {
@@ -27,10 +35,11 @@
 
   body {
     @apply bg-paper font-body text-ink antialiased;
+    font-feature-settings: "cv11", "ss01";
   }
 
   ::selection {
-    @apply bg-salmon text-indigo;
+    @apply bg-gold-200 text-navy-950;
   }
 
   summary::-webkit-details-marker {
@@ -40,15 +49,37 @@
 
 @layer components {
   .skip-link {
-    @apply fixed left-4 top-4 z-50 -translate-y-20 rounded-full bg-indigo px-4 py-2 text-sm font-semibold text-paper transition-transform focus:translate-y-0 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-salmon;
+    @apply fixed left-4 top-4 z-50 -translate-y-20 rounded-full bg-navy-900 px-4 py-2 text-sm font-semibold text-paper transition-transform focus:translate-y-0 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-gold-700;
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 transition-[gap];
+    @apply inline-flex items-center gap-1.5 transition-[gap] duration-200;
   }
 
   .link-arrow:hover {
     @apply gap-2.5;
+  }
+
+  /* Scroll-reveal: only hides content when JS is present (html.js) */
+  .js .reveal {
+    opacity: 0;
+    translate: 0 18px;
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+      translate 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+
+  .card-lift:hover {
+    @apply -translate-y-0.5 border-gold-500/50 shadow-fine;
   }
 }
 
@@ -60,5 +91,10 @@
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    translate: 0 0;
   }
 }

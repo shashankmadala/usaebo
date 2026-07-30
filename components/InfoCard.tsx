@@ -2,43 +2,32 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 type InfoCardProps = {
-  eyebrow?: string;
   title: string;
   body: string;
-  href?: string;
+  href: string;
+  eyebrow?: string;
 };
 
-export function InfoCard({ eyebrow, title, body, href }: InfoCardProps) {
-  const content = (
-    <>
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          {eyebrow ? <p className="text-sm font-semibold text-violet-deep">{eyebrow}</p> : null}
-          <h3 className="mt-2 font-heading text-xl font-semibold text-indigo">{title}</h3>
-        </div>
-        {href ? (
-          <ArrowRight
-            aria-hidden="true"
-            className="mt-1 shrink-0 text-indigo/40 transition-transform group-hover:translate-x-1 group-hover:text-indigo"
-            size={18}
-            strokeWidth={1.8}
-          />
-        ) : null}
-      </div>
-      <p className="mt-3 max-w-md text-sm leading-6 text-ink/65">{body}</p>
-    </>
+export function InfoCard({ title, body, href, eyebrow }: InfoCardProps) {
+  return (
+    <Link
+      className="card-lift group flex h-full flex-col rounded-2xl border border-ink/8 bg-paper p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700"
+      href={href}
+    >
+      {eyebrow ? (
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-700">{eyebrow}</p>
+      ) : null}
+      <h3 className="mt-2 font-heading text-xl font-semibold text-navy-900">{title}</h3>
+      <p className="mt-2.5 flex-1 text-sm leading-6 text-ink/60">{body}</p>
+      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
+        Learn more
+        <ArrowRight
+          aria-hidden="true"
+          className="text-gold-600 transition-transform duration-200 group-hover:translate-x-1"
+          size={15}
+          strokeWidth={2.2}
+        />
+      </span>
+    </Link>
   );
-
-  if (href) {
-    return (
-      <Link
-        className="group block border-t border-ink/10 py-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-salmon"
-        href={href}
-      >
-        {content}
-      </Link>
-    );
-  }
-
-  return <article className="border-t border-ink/10 py-6">{content}</article>;
 }

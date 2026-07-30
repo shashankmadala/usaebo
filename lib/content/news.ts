@@ -1,12 +1,12 @@
 import { site } from "./site";
-import { internationalResults2026 } from "./team";
+import { ieo2026, internationalResults2026 } from "./team";
 
 export const announcements = [
   {
     date: "July 21, 2026",
     title: "Team USA earns medals at IEO 2026",
     body: [
-      "Team USA brought home 1 Gold, 1 Silver, and 1 Bronze at the 2026 International Economics Olympiad held in Shenzhen, China during July 12-19, 2026.",
+      `Team USA brought home 1 Gold, 1 Silver, and 1 Bronze at the 2026 International Economics Olympiad held in ${ieo2026.location} during ${ieo2026.dates}.`,
       "Gold: Eli Orbach, Phillips Exeter Academy, Exeter, NH.",
       "Silver: Praneeth Annapureddy, BASIS Chandler, Chandler, AZ.",
       "Bronze: Jesse Zhang, Elite Preparatory Academy, Hopatcong, NJ.",

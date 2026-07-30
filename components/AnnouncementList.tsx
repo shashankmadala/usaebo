@@ -5,17 +5,21 @@ type Announcement = (typeof announcements)[number];
 
 type AnnouncementListProps = {
   items?: readonly Announcement[];
+  headingLevel?: "h2" | "h3";
 };
 
-export function AnnouncementList({ items = announcements }: AnnouncementListProps) {
+export function AnnouncementList({ items = announcements, headingLevel: Heading = "h3" }: AnnouncementListProps) {
   return (
     <div>
       {items.map((item) => (
-        <article className="grid gap-3 border-t border-ink/10 py-6 md:grid-cols-[9rem_1fr]" key={`${item.date}-${item.title}`}>
-          <p className="text-sm font-semibold text-violet-deep">{item.date}</p>
+        <article
+          className="grid gap-3 border-t border-ink/8 py-7 first:border-t-0 first:pt-0 md:grid-cols-[9.5rem_1fr]"
+          key={`${item.date}-${item.title}`}
+        >
+          <p className="pt-0.5 text-sm font-medium text-ink/60">{item.date}</p>
           <div>
-            <h3 className="font-heading text-xl font-semibold text-indigo">{item.title}</h3>
-            <div className="mt-3 grid gap-2 text-sm leading-6 text-ink/65">
+            <Heading className="font-heading text-xl font-semibold text-navy-900">{item.title}</Heading>
+            <div className="mt-3 grid gap-2 text-sm leading-6 text-ink/60">
               {item.body.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
